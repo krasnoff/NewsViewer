@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
  import { Link } from 'expo-router'; 
 import useGetData from '../hooks/useGetData';
 import { useEffect } from 'react';
@@ -11,12 +11,15 @@ export default function Index() {
     }, []);
 
     useEffect(() => {
+      console.log('data:', data);
     }, [data]);
 
     useEffect(() => {
+      console.log('error message:', error);
     }, [error]);
 
     useEffect(() => {
+      console.log('loading:', loading);
     }, [loading]);
 
     return (
@@ -25,6 +28,7 @@ export default function Index() {
         <Link href="/about" style={styles.button}>
             Go to About screen
         </Link>
+        <Button onPress={refetch} title="Press" color="#fff" />
         </View>
     );
 }
