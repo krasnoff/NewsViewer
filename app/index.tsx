@@ -10,6 +10,15 @@ export default function Index() {
         refetch();
     }, []);
 
+    useEffect(() => {
+    }, [data]);
+
+    useEffect(() => {
+    }, [error]);
+
+    useEffect(() => {
+    }, [loading]);
+
     return (
         <View style={styles.container}>
         <Text style={styles.text}>Home screen</Text>
