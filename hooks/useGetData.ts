@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { Methods } from "../enums/methods.enum";
 import axios from "axios";
-import { Articles } from "../interfaces/NewsData";
+import { Articles, NewsData } from "../interfaces/NewsData";
 
 const useGetData = (url: string, method: Methods = Methods.GET, body: object = {}) => {
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<NewsData>({ status: '', totalResults: 0, articles: [] });
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
