@@ -12,7 +12,7 @@ export default function Index() {
     }, []);
 
     useEffect(() => {
-      console.log('data:', data);
+      // console.log('data:', data);
     }, [data]);
 
     useEffect(() => {
@@ -30,9 +30,9 @@ export default function Index() {
                 Go to About screen
             </Link>
             <Button onPress={refetch} title="Press" color="#fff" />
-            <ScrollView>
+            <ScrollView style={styles.allItems}>
             {data && data.articles && data.articles.map((item: Articles, index: number) => 
-                <div key={index} style={styles.itemContainer}>{item.author}</div>
+                <Text key={index} style={styles.itemContainer}>{item.author}</Text>
             )}
             </ScrollView>
         </View>
@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: '#000000',
     width: '100%'
+  },
+  allItems: {
+    width: '100%',
+    padding: 10
   },
   itemContainer: {
     flexDirection: 'column',
