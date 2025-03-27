@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import WebView from 'react-native-webview';
@@ -8,7 +9,8 @@ export default function ArticleScreen() {
   return (
     <View style={styles.container}>
       {Platform.OS === "android" ? <WebView
-        style={styles.container}
+        originWhitelist={['*']}
+        style={styles.container2}
         source={{ uri: url }}
       /> : null}
       {Platform.OS === "web" ? 
@@ -21,9 +23,10 @@ export default function ArticleScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  container2: {
+    flex: 1,
+    
   },
   text: {
     color: '#000',
