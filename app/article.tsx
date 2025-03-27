@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import WebView from 'react-native-webview';
