@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Button, ScrollView, Image } from 'react-native';
  import { Link } from 'expo-router'; 
 import useGetData from '../hooks/useGetData';
 import { useEffect } from 'react';
@@ -25,15 +25,23 @@ export default function Index() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Home screen</Text>
-            <Link href="/about" style={styles.button}>
-                Go to About screen
-            </Link>
-            <Button onPress={refetch} title="Press" color="#fff" />
+            {/* <Button onPress={refetch} title="Press" color="#000000" /> */}
             <ScrollView style={styles.allItems}>
-            {data && data.articles && data.articles.map((item: Articles, index: number) => 
-                <Text key={index} style={styles.itemContainer}>{item.author}</Text>
-            )}
+                {data && data.articles && data.articles.map((item: Articles, index: number) => 
+                    <View key={index} style={styles.itemContainer}>
+                        <View style={[styles.flexDirectionColumn, styles.flexImage]}>
+                            <Image style={styles.tinyLogo} source={{
+                                uri: item.urlToImage,
+                            }} />
+                            <Text style={styles.fontBold}>{item.author}</Text>
+                        </View>
+                        <View style={[styles.flexDirectionColumn, styles.flexText]}>
+                            <Text style={styles.fontBold}>{item.title}</Text>
+                            <Text>{new Date(item.publishedAt).toLocaleDateString("en-US")}</Text>
+                            <Text>{item.description}</Text>
+                        </View>
+                    </View>
+                )}
             </ScrollView>
         </View>
     );
@@ -53,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   itemContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
@@ -65,14 +73,29 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     width: '100%',
+    flex: 1,
+    flexBasis: 'auto',
+    marginBottom: 20,
+    padding: 10
+  },
+  tinyLogo: {
+    width: '100%',
+    // Without height undefined it won't work
+    height: undefined,
+    // figure out your image aspect ratio
+    aspectRatio: 135 / 76,
+  },
+  flexDirectionColumn: {
+    flexDirection: 'column',
+  },
+  flexText: {
+    flex: 3,
+    paddingLeft: 10
+  },
+  flexImage: {
     flex: 1
   },
-  text: {
-    color: '#000000',
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#000000',
-  },
+  fontBold: {
+    fontWeight: '700'
+  }
 });
