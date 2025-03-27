@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, ScrollView, Image } from 'react-native';
+import { Text, View, StyleSheet, Button, ScrollView, Image, Linking } from 'react-native';
  import { Link } from 'expo-router'; 
 import useGetData from '../hooks/useGetData';
 import { useEffect } from 'react';
@@ -29,17 +29,20 @@ export default function Index() {
             <ScrollView style={styles.allItems}>
                 {data && data.articles && data.articles.map((item: Articles, index: number) => 
                     <View key={index} style={styles.itemContainer}>
-                        <View style={[styles.flexDirectionColumn, styles.flexImage]}>
-                            <Image style={styles.tinyLogo} source={{
-                                uri: item.urlToImage,
-                            }} />
-                            <Text style={styles.fontBold}>{item.author}</Text>
+                        <View style={styles.flexDirectionRow}>
+                            <View style={[styles.flexDirectionColumn, styles.flexImage]}>
+                                <Image style={styles.tinyLogo} source={{
+                                    uri: item.urlToImage,
+                                }} />
+                                <Text style={styles.fontBold}>{item.author}</Text>
+                            </View>
+                            <View style={[styles.flexDirectionColumn, styles.flexText]}>
+                                <Text style={styles.fontBold}>{item.title}</Text>
+                                <Text>{new Date(item.publishedAt).toLocaleDateString("en-US")}</Text>
+                                <Text>{item.description}</Text>
+                            </View>
                         </View>
-                        <View style={[styles.flexDirectionColumn, styles.flexText]}>
-                            <Text style={styles.fontBold}>{item.title}</Text>
-                            <Text>{new Date(item.publishedAt).toLocaleDateString("en-US")}</Text>
-                            <Text>{item.description}</Text>
-                        </View>
+                        <View style={styles.goToArticle}><Link href={`/article?url=${encodeURIComponent(item.url)}`}>Go to Article</Link></View>
                     </View>
                 )}
             </ScrollView>
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   itemContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
@@ -88,6 +91,9 @@ const styles = StyleSheet.create({
   flexDirectionColumn: {
     flexDirection: 'column',
   },
+  flexDirectionRow: {
+    flexDirection: 'row',
+  },
   flexText: {
     flex: 3,
     paddingLeft: 10
@@ -97,5 +103,8 @@ const styles = StyleSheet.create({
   },
   fontBold: {
     fontWeight: '700'
+  },
+  goToArticle: {
+    alignItems: 'flex-end'
   }
 });
