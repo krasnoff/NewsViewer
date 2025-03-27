@@ -1,13 +1,19 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
+import WebView from 'react-native-webview';
 
 export default function ArticleScreen() {
   const { url } = useLocalSearchParams<{ url: string }>();
   
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>About screen</Text>
-      <Text style={styles.text}>{url}</Text>
+      {Platform.OS === "android" ? <WebView
+        style={styles.container}
+        source={{ uri: url }}
+      /> : null}
+      {Platform.OS === "web" ? 
+        <Text><a href={url} target="_blank">Go To Article</a></Text>
+      : null}
     </View>
   );
 }
