@@ -10,6 +10,7 @@ export default function RootLayout() {
         headerTitleAlign: 'center',
         headerTitleStyle: {
           fontWeight: 'bold',
+          fontSize: 24,
         },
     }}>
       <Stack.Screen name="index" options={{ title: 'Home' }} />
