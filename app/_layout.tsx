@@ -1,7 +1,9 @@
 import { Stack } from 'expo-router';
+import React from 'react';
 import { I18nManager } from 'react-native';
+// import StorybookUIRoot from '../storybook/index';
 
-export default function RootLayout() {
+function RootLayout() {
   I18nManager.allowRTL(false);
   I18nManager.forceRTL(false);
   
@@ -22,3 +24,13 @@ export default function RootLayout() {
     </Stack>
   );
 }
+
+let AppEntryPoint = RootLayout;
+
+// if (__DEV__ && process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true') {
+//   AppEntryPoint = () => {
+//     return <StorybookUIRoot />;
+//   }
+// }
+
+export default AppEntryPoint;
