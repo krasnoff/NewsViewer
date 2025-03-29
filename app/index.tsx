@@ -1,32 +1,41 @@
-import { Text, View, StyleSheet, Button, ScrollView, Image, Linking } from 'react-native';
+import { Text, View, StyleSheet, Button, ScrollView, Image, Linking, RefreshControl } from 'react-native';
  import { Link } from 'expo-router'; 
 import useGetData from '../hooks/useGetData';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Articles } from '../interfaces/NewsData';
 
 export default function Index() {
     const { data, error, loading, refetch } = useGetData('top-headlines?language=en');
+    const [refreshing, setRefreshing] = useState<boolean>(false);
 
     useEffect(() => {
         refetch();
     }, []);
 
     useEffect(() => {
-      // console.log('data:', data);
+      setRefreshing(false);
     }, [data]);
 
     useEffect(() => {
       console.log('error message:', error);
+      setRefreshing(false);
     }, [error]);
 
     useEffect(() => {
-      console.log('loading:', loading);
+      //console.log('loading:', loading);
     }, [loading]);
+
+    const onRefresh = useCallback(() => {
+      setRefreshing(true);
+      refetch();
+    }, []);
 
     return (
         <View style={styles.container}>
-            {/* <Button onPress={refetch} title="Press" color="#000000" /> */}
-            <ScrollView style={styles.allItems}>
+            <ScrollView style={styles.allItems}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> 
+            }>
                 {data && data.articles && data.articles.map((item: Articles, index: number) => 
                     <View key={index} style={styles.itemContainer}>
                         <View style={styles.flexDirectionRow}>
