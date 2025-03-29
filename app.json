@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "emptyProject2",
+    "name": "News Viewer App",
     "slug": "emptyProject2",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -26,7 +26,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ],
     "extra": {
       "router": {
