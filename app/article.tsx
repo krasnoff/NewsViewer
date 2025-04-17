@@ -1,12 +1,18 @@
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import WebView from 'react-native-webview';
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 export default function ArticleScreen() {
   const { url } = useLocalSearchParams<{ url: string }>();
   
   return (
     <View style={styles.container}>
+      <StatusBar
+        backgroundColor='#f4511e'
+        style='light'
+      />
       {Platform.OS === "android" ? <WebView
         originWhitelist={['*']}
         style={styles.container2}

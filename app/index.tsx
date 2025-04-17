@@ -4,6 +4,7 @@ import useGetData from '../hooks/useGetData';
 import { useCallback, useEffect, useState } from 'react';
 import { Articles } from '../interfaces/NewsData';
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Index() {
     const { data, error, loading, refetch } = useGetData('top-headlines?language=en');
@@ -33,6 +34,10 @@ export default function Index() {
 
     return (
         <View style={styles.container}>
+            <StatusBar
+              backgroundColor='#f4511e'
+              style='light'
+            />
             <ScrollView style={styles.allItems}
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> 
