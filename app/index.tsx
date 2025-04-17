@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, ScrollView, Image, Linking, RefreshCont
 import useGetData from '../hooks/useGetData';
 import { useCallback, useEffect, useState } from 'react';
 import { Articles } from '../interfaces/NewsData';
+import React from 'react';
 
 export default function Index() {
     const { data, error, loading, refetch } = useGetData('top-headlines?language=en');
